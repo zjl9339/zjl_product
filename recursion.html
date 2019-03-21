@@ -121,11 +121,10 @@
         function creatTree(arr){
             if(!arr) return;
             arr.forEach(function(item){
-                treeBox.innerHTML += '<li name="'+item.name.split("-").length+'">'+ item.name;
+                treeBox.innerHTML += '<li name="'+item.name.split("-").length+'">'+ item.name + '</li>';
                 if(item.children && item.children.length > 0){
                     creatTree(item.children);
                 }
-                treeBox.innerHTML += '</li>';
             });
         }
         creatTree(treeObj);
