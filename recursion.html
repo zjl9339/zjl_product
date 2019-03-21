@@ -31,16 +31,10 @@
     </script>
 
     <h3>菜单树</h3>
-    <div class="treeBox"></div>
+    <ul class="treeBox"></ul>
     <style>
         .treeBox {
             padding: 0 10px;
-        }
-        .treeBox li[name="2"] {
-            margin-left: 20px;
-        }
-        .treeBox li[name="3"] {
-            margin-left: 40px;
         }
     </style>
     <script>
@@ -118,16 +112,21 @@
         ];
         var treeBox = document.getElementsByClassName("treeBox")[0];
         var treeStr = '';
-        function creatTree(arr){
+        function creatTree(arr,init){
             if(!arr) return;
+            if(init) treeStr += '<ul>';
             arr.forEach(function(item){
-                treeBox.innerHTML += '<li name="'+item.name.split("-").length+'">'+ item.name + '</li>';
                 if(item.children && item.children.length > 0){
-                    creatTree(item.children);
+                    treeStr += '<li>'+ item.name + '</li>';
+                    creatTree(item.children,1);
+                }else {
+                    treeStr += '<li>'+ item.name + '</li>';
                 }
             });
+            if(init) treeStr += '</ul>';
         }
-        creatTree(treeObj);
+        creatTree(treeObj,0);
+        treeBox.innerHTML = treeStr;
     </script>
 </body>
 </html>
