@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>递归用法: 倒计时跳过、菜单树</title>
+</head>
+<body>
+    <a href="https://www.baidu.com/">跳过 <b>5</b></a>
+    <script>
+        var b = document.getElementsByTagName("b")[0];
+        var num = parseInt(b.innerHTML);
+        var timer = null;
+        window.onload = function(){
+//            countDown(num)
+        };
+
+        function countDown(num){
+            clearInterval(timer);
+            if(num>0){
+                timer = setInterval(function(){
+                    num --;
+                    b.innerHTML = num;
+                    countDown(num);
+                },1000)
+            }else {
+                location.href = "https://www.baidu.com/";
+            }
+        }
+    </script>
+
+    <h3>菜单树</h3>
+    <div class="treeBox"></div>
+    <style>
+        .treeBox {
+            padding: 0 10px;
+        }
+        .treeBox li[name="2"] {
+            margin-left: 20px;
+        }
+        .treeBox li[name="3"] {
+            margin-left: 40px;
+        }
+    </style>
+    <script>
+        var treeObj = [
+            {
+                name: "菜单1",
+                children: [
+                    {
+                        name: "菜单 1-1",
+                        children: [
+                            {
+                                name: "菜单 1-1-1",
+                                children: [
+
+                                ]
+                            },
+                            {
+                                name: "菜单 1-1-2",
+                                children: [
+
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "菜单 1-2",
+                        children: [
+                            {
+                                name: "菜单 1-2-1",
+                                children: [
+
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "菜单2",
+                children: [
+                    {
+                        name: "菜单 2-1",
+                        children: [
+                            {
+                                name: "菜单 2-1-1",
+                                children: [
+
+                                ]
+                            },
+                            {
+                                name: "菜单 2-1-2",
+                                children: [
+
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        name: "菜单 2-2",
+                        children: [
+                            {
+                                name: "菜单 2-2-1",
+                                children: [
+
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                name: "菜单3",
+                children: []
+            }
+        ];
+        var treeBox = document.getElementsByClassName("treeBox")[0];
+        var treeStr = '';
+        function creatTree(arr){
+            if(!arr) return;
+            arr.forEach(function(item){
+                treeBox.innerHTML += '<li name="'+item.name.split("-").length+'">'+ item.name;
+                if(item.children && item.children.length > 0){
+                    creatTree(item.children);
+                }
+                treeBox.innerHTML += '</li>';
+            });
+        }
+        creatTree(treeObj);
+    </script>
+</body>
+</html>
