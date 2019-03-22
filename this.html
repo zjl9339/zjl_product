@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>This的使用</title>
+</head>
+<body>
+    <h3>this：函数的拥有者</h3>
+    <ul>
+        <li>函数中使用</li>
+        <li>对象调用:
+            <ul>
+                <li>对象调用  对象方法默认指向当前对象；强行指向window：call(),apply() --> 在一个对象中调用另一个对像</li>
+                <li>call(this,name,age), apply(this,[name,age])  第一个参数指得当前作用域</li>
+                <li><button onclick="run()">面试题测试</button></li>
+            </ul>
+        </li>
+        <li>构造函数使用：this指向这个实例化对象</li>
+        <li>this指向</li>
+    </ul>
+
+    <script>
+        // 1.函数中使用
+        var x = 10;
+        function aa(){
+            this.x = 20;   // this = window
+        }
+        aa();
+        console.log(x);  // 20
+
+        // 2.对象调用
+        var o = {};
+        o.a = 10;
+        o.x = 10;
+        o.func = function(){
+            return this.a = 20;
+        };
+        o.func2 = aa;
+        o.func();
+        o.func2();
+        console.log(o.a,o.x);
+        // 对象调用  对象方法默认指向当前对象；强行指向window：call(),apply() --> 在一个对象中调用另一个对象
+        // call(this,name,age), apply(this,[name,age])  第一个参数指得当前作用域
+        var a = '111';
+        var obj = {
+            a: '对象属性a',
+            fun: function(){
+                console.log(this,this.a);
+            }
+        };
+        obj.fun();         // obj.fun方法调用  this = obj  当前方法调用的对象
+        obj.fun.call();    // call不传参，obj.fun方法中 this = window
+        obj.fun.call(obj); // call 第一个参数  指定当前域， this = obj call的第一个参数
+
+        // 面向对象面试题
+        var number = 1;
+        var obj2 = {
+            number: 2,
+            showNumber: function(){
+                this.number = 3;
+                (function(){
+                    console.log(this, this.number);  // window 1
+                })();
+                setTimeout(function(){
+                    this.number ++;
+                    console.log(this, this.number);  // window 2
+                },2000);
+                console.log(this, this.number);      // obj2  3
+            }
+        };
+        var run = function(){
+            obj2.showNumber();
+        };
+
+
+        // 3.构造函数使用  this指向这个实例化对象
+        function Fun(name,age){
+            this.name = name;
+            this.age = age;
+            this.say = function(){
+                console.log()
+            }
+        }
+        var f1 = new Fun("zjl",12);   // this = f1
+        var f2 = new Fun("sfds",54);  // this = f2
+
+        // this指向
+
+    </script>
+</body>
+</html>

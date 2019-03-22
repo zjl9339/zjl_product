@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title>RegExp:正则</title>
+</head>
+<body>
+    <h3>正则校验</h3>
+    <input type="text" name="value"/>
+    <button onclick="test()">匹配校验</button>
+    <p>/^[a-z]at$/ 匹配结果：<b></b></p>
+    <hr/>
+    <h3>正则语法：</h3>
+    <ul>
+        <li>\b: 匹配一个单词的边界；\B：匹配一个单词的非边界；</li>
+        <li>\d: 匹配一个数字字符; \D:匹配一个非数字字符;</li>
+        <li>\w: 匹配字母、数字、下划线; \W:匹配除字母、数字、下划线;</li>
+        <li>[]: 匹配指定一堆字符中的 1 个; [^]: 不匹配这个集合中的任何 1 个字符</li>
+        <li>{x}: 前一模式 可以被重复X次；{x,y}: 前一模式 可以被重复X-y次；{x,}: 前一模式 至少被重复X次；</li>
+        <li>(): 可以指定一堆字符 匹配一个模式</li>
+        <li>| : 几个规则 只要能匹配一个就可以</li>
+        <li>\ : 转义字符</li>
+        <li>+ ：前一模式 可以被重复1或n次；</li>
+        <li>* ：前一模式 可以被重复0或n次；</li>
+        <li>？：前一模式 可以被重复0或1次；</li>
+    </ul>
+    <hr/>
+    <h3>随堂练习</h3>
+
+    <script>
+        var filter = /^[a-z]at$/;
+        var filter2 = new RegExp('^[a-z]at$');
+        function test(){
+            var value = document.getElementsByTagName("input")[0].value;
+            var b = document.getElementsByTagName("b")[0];
+            if(filter.test(value)){
+                b.innerHTML = "正则匹配成功";
+            }else {
+                b.innerHTML = "正则匹配失败";
+            }
+        }
+
+    </script>
+</body>
+</html>
